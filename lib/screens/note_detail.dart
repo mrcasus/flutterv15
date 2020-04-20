@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutterappv14/models/note.dart';
 import 'package:flutterappv14/utils/database_helper.dart';

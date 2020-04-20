@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
+import 'package:flutterappv14/screens/exportToExcel.dart';
+import 'package:flutterappv14/screens/note_list.dart';
 import 'package:splashscreen/splashscreen.dart';
-import './screens/note_list.dart';
-import './screens/note_detail.dart';
 
 void main() {
   runApp(new MaterialApp(
@@ -47,10 +45,9 @@ class _AfterSplashState extends State<AfterSplash> {
   
   int  _selectedPage = 0;
  final _pageOptions = [
-   NoteDetail(), // Burada herhangi bir değer vermediğiniz için hata veriyor.
-   /
+  // NoteDetail(appBarTitle: "sadasd",), // Burada herhangi bir değer vermediğiniz için hata veriyor.
    NoteList(),
-  // LandspacePage(),
+   ExportToExcel(),
  ];
   
  
@@ -83,11 +80,11 @@ class _AfterSplashState extends State<AfterSplash> {
             BottomNavigationBarItem(icon: Icon(Icons.home),
               title: Text('home')
               ),
-            BottomNavigationBarItem(icon: Icon(Icons.work),
+           /* BottomNavigationBarItem(icon: Icon(Icons.work),
               title: Text('work')
-              ),
+              ),*/
             BottomNavigationBarItem(icon: Icon(Icons.info),
-              title: Text('About')
+              title: Text('Excel')
               ),
           ],
         ),
