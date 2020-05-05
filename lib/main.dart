@@ -71,6 +71,7 @@ class _AfterSplashState extends State<AfterSplash> {
           //selectedItemColor: Colors.black,
           //unselectedItemColor: Colors.green[800],
           currentIndex: _selectedPage,
+          type: BottomNavigationBarType.fixed,
           onTap: (int index) {
             setState(() {
               _selectedPage = index;
@@ -83,7 +84,10 @@ class _AfterSplashState extends State<AfterSplash> {
            /* BottomNavigationBarItem(icon: Icon(Icons.work),
               title: Text('work')
               ),*/
-            BottomNavigationBarItem(icon: Icon(Icons.info),
+            BottomNavigationBarItem(icon: Icon(Icons.search),
+              title: Text('Arama')
+              ),
+            BottomNavigationBarItem(icon: Icon(Icons.cloud_download),
               title: Text('Excel')
               ),
           ],

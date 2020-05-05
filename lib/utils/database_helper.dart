@@ -16,8 +16,13 @@ class DatabaseHelper {
   String colId = 'id';
   String colTitle = 'title';
   String colDescription = 'description';
+  String colAltkategori = 'altkategori';
+  String colDemirbaskategori = 'demirbaskategori';
+  String colBarkod = 'barkod';
   String colPriority = 'priority';
   String colDate = 'date';
+
+
 
   DatabaseHelper._createInstance(); // Named constructor to create instance of DatabaseHelper
 
@@ -45,9 +50,10 @@ class DatabaseHelper {
     return notesDatabase;
   }
 
-  void _createDb(Database db, int newVersion) async {
+ 
+void _createDb(Database db, int newVersion) async {
     await db.execute('CREATE TABLE $noteTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colTitle TEXT, '
-        '$colDescription TEXT, $colPriority INTEGER, $colDate TEXT)');
+        '$colDescription TEXT, $colAltkategori TEXT, $colDemirbaskategori TEXT, $colBarkod TEXT, $colPriority INTEGER, $colDate TEXT)');
   }
 
   // Fetch Operation: Get all note objects from database
