@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutterappv14/models/note.dart';
 import 'package:flutterappv14/utils/database_helper.dart';
@@ -27,11 +26,8 @@ class NoteDetailState extends State<NoteDetail> {
 	String appBarTitle;
 	Note note;
 
-	TextEditingController subeadiController = TextEditingController();
-	TextEditingController anakatController = TextEditingController();
-  TextEditingController altkatController = TextEditingController();
-  TextEditingController demaltController = TextEditingController();
-  TextEditingController barkodController = TextEditingController();
+	TextEditingController titleController = TextEditingController();
+	TextEditingController descriptionController = TextEditingController();
 
 	NoteDetailState(this.note, this.appBarTitle);
 
@@ -40,10 +36,8 @@ class NoteDetailState extends State<NoteDetail> {
 
 		TextStyle textStyle = Theme.of(context).textTheme.title;
 
-		subeadiController.text = note.subeadi;
-		anakatController.text = note.anakat;
-    altkatController.text = note.altkat;
-    barkodController.text = note.barkod;
+		titleController.text = note.title;
+		descriptionController.text = note.description;
 
     return WillPopScope(
 
@@ -96,7 +90,7 @@ class NoteDetailState extends State<NoteDetail> {
 				    Padding(
 					    padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
 					    child: TextField(
-						    controller: subeadiController,
+						    controller: titleController,
 						    style: textStyle,
 						    onChanged: (value) {
 						    	debugPrint('Something changed in Title Text Field');
@@ -116,7 +110,7 @@ class NoteDetailState extends State<NoteDetail> {
 				    Padding(
 					    padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
 					    child: TextField(
-						    controller: anakatController,
+						    controller: descriptionController,
 						    style: textStyle,
 						    onChanged: (value) {
 							    debugPrint('Something changed in Description Text Field');
@@ -124,65 +118,6 @@ class NoteDetailState extends State<NoteDetail> {
 						    },
 						    decoration: InputDecoration(
 								    labelText: 'Description',
-								    labelStyle: textStyle,
-								    border: OutlineInputBorder(
-										    borderRadius: BorderRadius.circular(5.0)
-								    )
-						    ),
-					    ),
-				    ),
-
-          Padding(
-					    padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-					    child: TextField(
-						    controller: altkatController,
-						    style: textStyle,
-						    onChanged: (value) {
-							    debugPrint('Something changed in Description Text Field');
-							    updateAltkat();
-						    },
-						    decoration: InputDecoration(
-								    labelText: 'Alt kategori',
-								    labelStyle: textStyle,
-								    border: OutlineInputBorder(
-										    borderRadius: BorderRadius.circular(5.0)
-								    )
-						    ),
-					    ),
-				    ),
-
-
-          Padding(
-					    padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-					    child: TextField(
-						    controller: demaltController,
-						    style: textStyle,
-						    onChanged: (value) {
-							    debugPrint('Something changed in Description Text Field');
-							    updateDemalt();
-						    },
-						    decoration: InputDecoration(
-								    labelText: 'Demirbaş kategori',
-								    labelStyle: textStyle,
-								    border: OutlineInputBorder(
-										    borderRadius: BorderRadius.circular(5.0)
-								    )
-						    ),
-					    ),
-				    ),
-
-
-          Padding(
-					    padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-					    child: TextField(
-						    controller: barkodController,
-						    style: textStyle,
-						    onChanged: (value) {
-							    debugPrint('Something changed in Description Text Field');
-							    updateDemalt();
-						    },
-						    decoration: InputDecoration(
-								    labelText: 'Barkod',
 								    labelStyle: textStyle,
 								    border: OutlineInputBorder(
 										    borderRadius: BorderRadius.circular(5.0)
@@ -275,20 +210,12 @@ class NoteDetailState extends State<NoteDetail> {
 
 	// Update the title of Note object
   void updateTitle(){
-    note.subeadi = subeadiController.text;
+    note.title = titleController.text;
   }
 
 	// Update the description of Note object
 	void updateDescription() {
-		note.anakat = anakatController.text;
-	}
-
-  	void updateAltkat() {
-		note.altkat = altkatController.text;
-	}
-
-  	void updateDemalt() {
-		note.altkat = altkatController.text;
+		note.description = descriptionController.text;
 	}
 
 	// Save data to database

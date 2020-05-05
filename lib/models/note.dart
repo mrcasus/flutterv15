@@ -4,9 +4,6 @@ class Note {
 	int _id;
 	String _title;
 	String _description;
-  String _altkat;
-  String _demalt;
-  String _barkod;
 	String _date;
 	int _priority;
 
@@ -16,47 +13,23 @@ class Note {
 
 	int get id => _id;
 
-	String get subeadi => _title;
+	String get title => _title;
 
-	String get anakat => _description;
-
-  String get altkat => _altkat;
-
-  String get demalt => _demalt;
-
-  String get barkod => _barkod;
+	String get description => _description;
 
 	int get priority => _priority;
 
 	String get date => _date;
 
-	set subeadi(String newSubeadi) {
-		if (newSubeadi.length <= 255) {
-			this._title = newSubeadi;
+	set title(String newTitle) {
+		if (newTitle.length <= 255) {
+			this._title = newTitle;
 		}
 	}
 
-	set anakat(String newAnakat) {
-		if (newAnakat.length <= 255) {
-			this._description = newAnakat;
-		}
-	}
-
-	set altkat(String newAltkat) {
-		if (newAltkat.length <= 255) {
-			this._altkat = newAltkat;
-		}
-	}
-
-  set demalt(String newDemalt) {
-		if (newDemalt.length <= 255) {
-			this._demalt = newDemalt;
-		}
-	}
-
-   set barkod(String newBarkod) {
-		if (newBarkod.length <= 255) {
-			this._barkod = newBarkod;
+	set description(String newDescription) {
+		if (newDescription.length <= 255) {
+			this._description = newDescription;
 		}
 	}
 
