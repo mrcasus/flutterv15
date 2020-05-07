@@ -3,6 +3,11 @@ import 'package:flutterappv14/models/note.dart';
 import 'package:flutterappv14/utils/database_helper.dart';
 import 'package:intl/intl.dart';
 
+import 'dart:async';
+import 'package:barcode_scan/barcode_scan.dart';
+import 'package:flutter/services.dart';
+
+
 class NoteDetail extends StatefulWidget {
 
 	final String appBarTitle;
@@ -26,24 +31,77 @@ class NoteDetailState extends State<NoteDetail> {
 	String appBarTitle;
 	Note note;
 
-	TextEditingController subeadiController = TextEditingController();
-	TextEditingController anakatController = TextEditingController();
-  TextEditingController altkatController = TextEditingController();
-  TextEditingController demaltController = TextEditingController();
-  TextEditingController barkodController = TextEditingController();
-
 	NoteDetailState(this.note, this.appBarTitle);
+
+  List<String> ana=['MOBİLYA VE MEFRUŞATLAR','DEMİRBAŞLAR','BİLGİSAYAR VE YAZICILAR','ELEKTRİK/ELEKTRONİK MALZEME'];
+  String _ana='MOBİLYA VE MEFRUŞATLAR';
+
+  void pilihAna(String value){
+    setState(() {
+      _ana=value;
+    });
+  }
+
+  List<String> sube=['AKÇAABAT','TANJANT','MEYDAN','CUMHURİYET','D.DERE','KAŞÜSTÜ İRTİBAT','ARSİN','OF','KAÇKAR','RİZE','ÇAYKENT','ÇAYELİ','ARDEŞEN','HOPA','ARTVİN','GÜMÜŞHANE','BAYBURT','VAKFIKEBİR','GİRESUN','BULANCAK','DURUGÖL','ORDU','BOZTEPE','ÇUKURÇAYIR',];
+  String _sube='AKÇAABAT';
+
+  void pilihAgama(String value){
+    setState(() {
+      _sube=value;
+    });
+  }
+
+  List<String> alt=['AKILLI TELEFON','ALARM','BANKO','BARKOD PRINTER','CRADLE','DOLAP','KAMERA','DVR','ECZA DOLABI','EL ARABASI','EL TERMİNALİ','ETEJER','HESAP MAKİNESİ','IP TELEFON','ISITICI','JENERATÖR','KABİNET','KANTAR','KART OKUYUCU','KESON','KLAVYE','KLİMA','KOLTUK','MASA','MODEM','MONİTÖR','PANO','PC','PORTMANTO','PORTRE','RAF','ROUTER','SANDALYE','SEHPA','SEHPA','SWITCH','TABELA','UPS','YANGIN TÜPÜ','YAZICI'];
+  String _alt='AKILLI TELEFON';
+
+  void pilihAlt(String value){
+    setState(() {
+      _alt=value;
+    });
+  }
+
+   List<String> demalt=['AKILLI TELEFON','ALARM','BANKO','BARKOD PRINTER','CRADLE','DOLAP','KAMERA','DVR','ECZA DOLABI','EL ARABASI','EL TERMİNALİ','ETEJER','HESAP MAKİNESİ','IP TELEFON','ISITICI','JENERATÖR','KABİNET','KANTAR','KART OKUYUCU','KESON','KLAVYE','KLİMA','KOLTUK','MASA','MODEM','MONİTÖR','PANO','PC','PORTMANTO','PORTRE','RAF','ROUTER','SANDALYE','SEHPA','SEHPA','SWITCH','TABELA','UPS','YANGIN TÜPÜ','YAZICI'];
+  String _demalt='AKILLI TELEFON';
+
+  void pilihDemalt(String value){
+    setState(() {
+      _demalt=value;
+    });
+  }
+ 
+ String barcode = "";
+
+Future scan() async {
+ try {
+      String barcode = await BarcodeScanner.scan();
+      setState(() => this.barcode = barcode);
+    } on PlatformException catch (e) {
+      if (e.code == BarcodeScanner.CameraAccessDenied) {
+        setState(() {
+               this.barcode = 'Kamera yetkisi verin!';
+        });
+      } else {
+        setState(() => this.barcode = 'Unknown error: $e');
+      }
+    } on FormatException{
+      setState(() => this.barcode = 'Lütfen barkod okutunuz!');
+    } catch (e) {
+     setState(() => this.barcode = 'Unknown error: $e');
+    }
+  }
+
+
 
 	@override
   Widget build(BuildContext context) {
 
-		TextStyle textStyle = Theme.of(context).textTheme.title;
+	//	TextStyle textStyle = Theme.of(context).textTheme.title;
 
-		subeadiController.text = note.subeadi;
-		anakatController.text = note.anakat;
-    altkatController.text = note.altkat;
-    demaltController.text = note.demalt;
-    barkodController.text = note.barkod;
+  _ana = widget.note.anakat;
+  _alt = widget.note.altkat;
+  _demalt = widget.note.demalt;
+  _sube = widget.note.subeadi;
+
     return WillPopScope(
 
 	    onWillPop: () {
@@ -63,133 +121,168 @@ class NoteDetailState extends State<NoteDetail> {
 		    ),
 	    ),
 
-	    body: Padding(
-		    padding: EdgeInsets.only(top: 15.0, left: 10.0, right: 10.0),
-		    child: ListView(
-			    children: <Widget>[
-
-			    	// First element
-				    ListTile(
-					    title: DropdownButton(
-							    items: _priorities.map((String dropDownStringItem) {
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+        
+        // First element
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text('Tip :      ',style: TextStyle(fontSize: 18.0,color: Colors.red),),
+              Expanded(
+                child: DropdownButton(
+                  items: _priorities.map((String dropDownStringItem) {
 							    	return DropdownMenuItem<String> (
 									    value: dropDownStringItem,
 									    child: Text(dropDownStringItem),
 								    );
 							    }).toList(),
+                  
 
-							    style: textStyle,
-
-							    value: getPriorityAsString(note.priority),
-
-							    onChanged: (valueSelectedByUser) {
-							    	setState(() {
+                  onChanged: (valueSelectedByUser) {
+                    setState(() {
 							    	  debugPrint('User selected $valueSelectedByUser');
 							    	  updatePriorityAsInt(valueSelectedByUser);
 							    	});
-							    }
-					    ),
-				    ),
+                  }
+                  ),
+                  ),
+            ],
+         ),
 
-				    // Second Element
-				    Padding(
-					    padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-					    child: TextField(
-						    controller: subeadiController,
-						    style: textStyle,
-						    onChanged: (value) {
-						    	debugPrint('Something changed in Title Text Field');
-						    	updateTitle();
-						    },
-						    decoration: InputDecoration(
-							    labelText: 'Title',
-							    labelStyle: textStyle,
-							    border: OutlineInputBorder(
-								    borderRadius: BorderRadius.circular(5.0)
-							    )
-						    ),
-					    ),
-				    ),
+      //subeadı
+          Row(
+             mainAxisSize: MainAxisSize.max,
+             children: <Widget>[
+               Text('Şube adı :  ',style: TextStyle(fontSize: 18.0,color: Colors.red),),
+               Expanded(
+                 child: DropdownButton<String>(
+                   isExpanded: true,
+                   onChanged: (String value){
+                            pilihAgama(value);
+                            updateTitle();
+                          },
+                          value: _sube,
+                         items: sube.map((String value){
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(
+                                value,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                ),
+                            );
+                          }).toList(),
+                 ))
+             ],
 
-				    // Third Element
-				    Padding(
-					    padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-					    child: TextField(
-						    controller: anakatController,
-						    style: textStyle,
-						    onChanged: (value) {
-							    debugPrint('Something changed in Ana katagori Text Field');
-							    updateDescription();
-						    },
-						    decoration: InputDecoration(
-								    labelText: 'Description',
-								    labelStyle: textStyle,
-								    border: OutlineInputBorder(
-										    borderRadius: BorderRadius.circular(5.0)
-								    )
-						    ),
-					    ),
-				    ),
+          ),
+          
+          // Ana Kategori
+          Row(
+             mainAxisSize: MainAxisSize.max,
+             children: <Widget>[
+               Text('Ana Kategori :  ',style: TextStyle(fontSize: 18.0,color: Colors.red),),
+               Expanded(
+                 child: DropdownButton<String>(
+                   isExpanded: true,
+                   onChanged: (String value){
+                            pilihAna(value);
+                            updateDescription();
+                          },
+                          value: _ana,
+                         items: ana.map((String value){
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(
+                                value,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                ),
+                            );
+                          }).toList(),
+                 ))
+             ],
+          ),
 
-				   Padding(
-					    padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-					    child: TextField(
-						    controller: altkatController,
-						    style: textStyle,
-						    onChanged: (value) {
-							    debugPrint('Something changed in Alt kategori Text Field');
-							    updateAltkat();
-						    },
-						    decoration: InputDecoration(
-								    labelText: 'Alt kategori',
-								    labelStyle: textStyle,
-								    border: OutlineInputBorder(
-										    borderRadius: BorderRadius.circular(5.0)
-								    )
-						    ),
-					    ),
-				    ),
+        // Alt kategori
+          Row(
+             mainAxisSize: MainAxisSize.max,
+             children: <Widget>[
+               Text('Alt Kategori :  ',style: TextStyle(fontSize: 18.0,color: Colors.red),),
+               Expanded(
+                 child: DropdownButton<String>(
+                   isExpanded: true,
+                   onChanged: (String value){
+                            pilihAlt(value);
+                            updateAltkat();
+                          },
+                          value: _alt,
+                         items: alt.map((String value){
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(
+                                value,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                ),
+                            );
+                          }).toList(),
+                 ))
+             ],
+          ),
 
+          
+// demirbas kategori
+          Row(
+             mainAxisSize: MainAxisSize.max,
+             children: <Widget>[
+               Text('Demirbaş Kategori :  ',style: TextStyle(fontSize: 18.0,color: Colors.red),),
+               Expanded(
+                 child: DropdownButton<String>(
+                   isExpanded: true,
+                   onChanged: (String value){
+                             pilihDemalt(value);
+                            updateDemalt();
+                          },
+                          value: _demalt,
+                         items: demalt.map((String value){
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(
+                                value,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                ),
+                            );
+                          }).toList(),
+                 ))
+             ],
+          ),
+          //barkod
+          Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                      Text('Barkod:',
+                      style: TextStyle(fontSize: 18.0,color: Colors.red),
+                      ),
+                      Text(barcode,
+                      style: TextStyle(fontSize: 18.0,color: Colors.black),
+                      ),
+                     IconButton(
+                    icon: Icon(Icons.camera),
+                    iconSize: 30,
+                    onPressed: scan,
+                    //scan,
+                    )
+            ],
+                     ),
+            
+            //save
             Padding(
-					    padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-					    child: TextField(
-						    controller: demaltController,
-						    style: textStyle,
-						    onChanged: (value) {
-							    debugPrint('Something changed in Demirbaş kategori Text Field');
-							    updateDemalt();
-						    },
-						    decoration: InputDecoration(
-								    labelText: 'Demirbaş kategori',
-								    labelStyle: textStyle,
-								    border: OutlineInputBorder(
-										    borderRadius: BorderRadius.circular(5.0)
-								    )
-						    ),
-					    ),
-				    ),
-
-             Padding(
-					    padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-					    child: TextField(
-						    controller: barkodController,
-						    style: textStyle,
-						    onChanged: (value) {
-							    debugPrint('Something changed in barkod Text Field');
-							    updateBarkod();
-						    },
-						    decoration: InputDecoration(
-								    labelText: 'Barkod',
-								    labelStyle: textStyle,
-								    border: OutlineInputBorder(
-										    borderRadius: BorderRadius.circular(5.0)
-								    )
-						    ),
-					    ),
-				    ),
-
-            // Fourth Element
-				    Padding(
 					    padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
 					    child: Row(
 						    children: <Widget>[
@@ -209,33 +302,13 @@ class NoteDetailState extends State<NoteDetail> {
 									    },
 								    ),
 							    ),
-
-							    Container(width: 5.0,),
-
-							    Expanded(
-								    child: RaisedButton(
-									    color: Theme.of(context).primaryColorDark,
-									    textColor: Theme.of(context).primaryColorLight,
-									    child: Text(
-										    'Delete',
-										    textScaleFactor: 1.5,
-									    ),
-									    onPressed: () {
-										    setState(() {
-											    debugPrint("Delete button clicked");
-											    _delete();
-										    });
-									    },
-								    ),
-							    ),
-
-						    ],
-					    ),
-				    ),
-
-			    ],
-		    ),
-	    ),
+                ],
+              ),
+              ),
+              
+          ],
+        ) ,
+      ),
 
     ));
   }
@@ -272,27 +345,42 @@ class NoteDetailState extends State<NoteDetail> {
 
 	// Update the title of Note object
   void updateTitle(){
-    note.subeadi = subeadiController.text;
+    setState(() {
+      
+    note.subeadi = _sube;
+    });
   }
 
 	// Update the description of Note object
 	void updateDescription() {
-		note.anakat = anakatController.text;
+    setState(() {
+      
+		note.anakat = _ana;
+    });
 	}
 
   // Update the altkat of Note object
-  void updateAltkat(){
-    note.altkat = altkatController.text;
+  void updateAltkat(){setState(() {
+    
+    note.altkat = _alt;
+  });
+
   }
 
   // Update the demalt of Note object
   void updateDemalt(){
-    note.demalt = demaltController.text;
+    setState(() {
+          note.demalt = _demalt;
+
+    });
   }
 
   // Update the barkod of Note object
   void updateBarkod(){
-    note.barkod = barkodController.text;
+    setState(() {
+          note.barkod = barcode;
+ 
+    });
   }
 
 	// Save data to database
@@ -316,25 +404,25 @@ class NoteDetailState extends State<NoteDetail> {
 
 	}
 
-	void _delete() async {
+//	void _delete() async {
 
-		moveToLastScreen();
+//		moveToLastScreen();
 
 		// Case 1: If user is trying to delete the NEW NOTE i.e. he has come to
 		// the detail page by pressing the FAB of NoteList page.
-		if (note.id == null) {
-			_showAlertDialog('Status', 'No Note was deleted');
-			return;
-		}
+//		if (note.id == null) {
+//			_showAlertDialog('Status', 'No Note was deleted');
+//			return;
+	//	}
 
 		// Case 2: User is trying to delete the old note that already has a valid ID.
-		int result = await helper.deleteNote(note.id);
-		if (result != 0) {
-			_showAlertDialog('Status', 'Note Deleted Successfully');
-		} else {
-			_showAlertDialog('Status', 'Error Occured while Deleting Note');
-		}
-	}
+//		int result = await helper.deleteNote(note.id);
+//		if (result != 0) {
+//			_showAlertDialog('Status', 'Note Deleted Successfully');
+//		} else {
+//			_showAlertDialog('Status', 'Error Occured while Deleting Note');
+	//	}
+	//}
 
 	void _showAlertDialog(String title, String message) {
 
@@ -343,8 +431,8 @@ class NoteDetailState extends State<NoteDetail> {
 			content: Text(message),
 		);
 		showDialog(
-				context: context,
-				builder: (_) => alertDialog
+			context: context,
+		builder: (_) => alertDialog
 		);
 	}
 

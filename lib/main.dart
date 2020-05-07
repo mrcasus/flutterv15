@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutterappv14/screens/exportToExcel.dart';
 import 'package:flutterappv14/screens/note_list.dart';
+import 'package:flutterappv14/screens/query.dart';
 import 'package:splashscreen/splashscreen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(new MaterialApp(
@@ -47,6 +49,7 @@ class _AfterSplashState extends State<AfterSplash> {
  final _pageOptions = [
   // NoteDetail(appBarTitle: "sadasd",), // Burada herhangi bir değer vermediğiniz için hata veriyor.
    NoteList(),
+   Query(),
    ExportToExcel(),
  ];
   
@@ -61,9 +64,14 @@ class _AfterSplashState extends State<AfterSplash> {
       ),
       
       home: Scaffold(
-       // appBar: AppBar(title: Text('sdfsfdds'),
+       appBar: AppBar(
+         title: Text(
+           'YKMobim',
+           style: GoogleFonts.monoton(textStyle: TextStyle(color: Colors.white, letterSpacing: .5),),
+          
+  ),
       
-        //),
+        ),
         
         body: _pageOptions[_selectedPage],
         bottomNavigationBar: BottomNavigationBar(

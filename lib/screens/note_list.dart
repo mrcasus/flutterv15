@@ -31,9 +31,9 @@ class NoteListState extends State<NoteList> {
 
     return Scaffold(
 
-	    appBar: AppBar(
-		    title: Text('Notes'),
-	    ),
+	   // appBar: AppBar(
+		 //   title: Text('Notes'),
+	   // ),
 
 	    body: getNoteListView(),
 
@@ -53,7 +53,7 @@ class NoteListState extends State<NoteList> {
 
   ListView getNoteListView() {
 
-		TextStyle titleStyle = Theme.of(context).textTheme.subhead;
+		//TextStyle titleStyle = Theme.of(context).textTheme.subhead;
 
 		return ListView.builder(
 			itemCount: count,
@@ -68,7 +68,7 @@ class NoteListState extends State<NoteList> {
 							child: getPriorityIcon(this.noteList[position].priority),
 						),
 
-						title: Text(this.noteList[position].subeadi, style: titleStyle,),
+						title: Text(this.noteList[position].subeadi, style: TextStyle(fontSize: 18.0,color: Colors.red),),
 
 						subtitle: Text(this.noteList[position].date),
 

@@ -121,6 +121,9 @@ void _createDb(Database db, int newVersion) async {
     prettify["id"] = "ID";
     prettify["title"] = "Başlık";
     prettify["description"] = "Açıklama";
+    prettify["altkategori"] = "Altkategori";
+    prettify["demirbaskategori"] = "Demirbaskategori";
+    prettify["barkod"] = "Barkod";
     prettify["priority"] = "Öncelik";
     prettify["date"] = "Tarih";
 
