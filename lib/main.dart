@@ -58,7 +58,7 @@ class _AfterSplashState extends State<AfterSplash> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'YKMobim',
       theme: ThemeData(        
         primarySwatch: Colors.blue,
       ),

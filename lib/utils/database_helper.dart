@@ -52,8 +52,9 @@ class DatabaseHelper {
 
  
 void _createDb(Database db, int newVersion) async {
-    await db.execute('CREATE TABLE $noteTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colTitle TEXT, '
-        '$colDescription TEXT, $colAltkategori TEXT, $colDemirbaskategori TEXT, $colBarkod TEXT, $colPriority INTEGER, $colDate TEXT)');
+    var colDescription2 = colDescription;
+        await db.execute('CREATE TABLE $noteTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colTitle TEXT, '
+            '$colDescription2 TEXT, $colAltkategori TEXT, $colDemirbaskategori TEXT, $colBarkod TEXT, $colPriority INTEGER, $colDate TEXT)');
   }
 
   // Fetch Operation: Get all note objects from database
