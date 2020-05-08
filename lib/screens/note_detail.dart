@@ -30,8 +30,18 @@ class NoteDetailState extends State<NoteDetail> {
 
 	String appBarTitle;
 	Note note;
+  
 
 	NoteDetailState(this.note, this.appBarTitle);
+
+  List<String> sube=['AKÇAABAT','TANJANT','MEYDAN','CUMHURİYET','D.DERE','KAŞÜSTÜ İRTİBAT','ARSİN','OF','KAÇKAR','RİZE','ÇAYKENT','ÇAYELİ','ARDEŞEN','HOPA','ARTVİN','GÜMÜŞHANE','BAYBURT','VAKFIKEBİR','GİRESUN','BULANCAK','DURUGÖL','ORDU','BOZTEPE','ÇUKURÇAYIR',];
+  String _sube='AKÇAABAT';
+
+  void pilihSube(String value){
+    setState(() {
+      _sube=value;
+    });
+  }
 
   List<String> ana=['MOBİLYA VE MEFRUŞATLAR','DEMİRBAŞLAR','BİLGİSAYAR VE YAZICILAR','ELEKTRİK/ELEKTRONİK MALZEME'];
   String _ana='MOBİLYA VE MEFRUŞATLAR';
@@ -42,15 +52,7 @@ class NoteDetailState extends State<NoteDetail> {
     });
   }
 
-  List<String> sube=['AKÇAABAT','TANJANT','MEYDAN','CUMHURİYET','D.DERE','KAŞÜSTÜ İRTİBAT','ARSİN','OF','KAÇKAR','RİZE','ÇAYKENT','ÇAYELİ','ARDEŞEN','HOPA','ARTVİN','GÜMÜŞHANE','BAYBURT','VAKFIKEBİR','GİRESUN','BULANCAK','DURUGÖL','ORDU','BOZTEPE','ÇUKURÇAYIR',];
-  String _sube='AKÇAABAT';
-
-  void pilihAgama(String value){
-    setState(() {
-      _sube=value;
-    });
-  }
-
+ 
   List<String> alt=['AKILLI TELEFON','ALARM','BANKO','BARKOD PRINTER','CRADLE','DOLAP','KAMERA','DVR','ECZA DOLABI','EL ARABASI','EL TERMİNALİ','ETEJER','HESAP MAKİNESİ','IP TELEFON','ISITICI','JENERATÖR','KABİNET','KANTAR','KART OKUYUCU','KESON','KLAVYE','KLİMA','KOLTUK','MASA','MODEM','MONİTÖR','PANO','PC','PORTMANTO','PORTRE','RAF','ROUTER','SANDALYE','SEHPA','SEHPA','SWITCH','TABELA','UPS','YANGIN TÜPÜ','YAZICI'];
   String _alt='AKILLI TELEFON';
 
@@ -100,7 +102,7 @@ Future scan() async {
   _ana = widget.note.anakat;
   _alt = widget.note.altkat;
   _demalt = widget.note.demalt;
-  _sube = widget.note.subeadi;
+ _sube = widget.note.subeadi;
 
     return WillPopScope(
 
@@ -133,8 +135,10 @@ Future scan() async {
               Text('Tip :      ',style: TextStyle(fontSize: 18.0,color: Colors.red),),
               Expanded(
                 child: DropdownButton(
+                 // value: 'hahaha',
                   items: _priorities.map((String dropDownStringItem) {
 							    	return DropdownMenuItem<String> (
+                     
 									    value: dropDownStringItem,
 									    child: Text(dropDownStringItem),
 								    );
@@ -152,8 +156,8 @@ Future scan() async {
             ],
          ),
 
-      //subeadı
-          Row(
+         //sube 
+         Row(
              mainAxisSize: MainAxisSize.max,
              children: <Widget>[
                Text('Şube adı :  ',style: TextStyle(fontSize: 18.0,color: Colors.red),),
@@ -161,7 +165,7 @@ Future scan() async {
                  child: DropdownButton<String>(
                    isExpanded: true,
                    onChanged: (String value){
-                            pilihAgama(value);
+                            pilihSube(value);
                             updateTitle();
                           },
                           value: _sube,
@@ -177,9 +181,10 @@ Future scan() async {
                           }).toList(),
                  ))
              ],
-
           ),
-          
+
+
+                
           // Ana Kategori
           Row(
              mainAxisSize: MainAxisSize.max,
@@ -281,6 +286,7 @@ Future scan() async {
             ],
                      ),
             
+            
             //save
             Padding(
 					    padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
@@ -345,42 +351,38 @@ Future scan() async {
 
 	// Update the title of Note object
   void updateTitle(){
-    setState(() {
-      
+    {      
     note.subeadi = _sube;
-    });
+    }
   }
 
 	// Update the description of Note object
 	void updateDescription() {
-    setState(() {
-      
-		note.anakat = _ana;
-    });
+    {
+    note.anakat = _ana;
+    }
 	}
 
   // Update the altkat of Note object
-  void updateAltkat(){setState(() {
-    
+  void updateAltkat(){ 
+    {
     note.altkat = _alt;
-  });
+  }
 
   }
 
   // Update the demalt of Note object
   void updateDemalt(){
-    setState(() {
+    {
           note.demalt = _demalt;
-
-    });
+    }
   }
 
   // Update the barkod of Note object
   void updateBarkod(){
-    setState(() {
-          note.barkod = barcode;
- 
-    });
+     {
+          note.barkod = barcode; 
+    }
   }
 
 	// Save data to database

@@ -40,7 +40,7 @@ class NoteListState extends State<NoteList> {
 	    floatingActionButton: FloatingActionButton(
 		    onPressed: () {
 		      debugPrint('FAB clicked');
-		      navigateToDetail(Note('', '', 2), 'Add Note');
+		      navigateToDetail(Note('', '', 3), 'Add Note');
 		    },
 
 		    tooltip: 'Add Note',
@@ -161,8 +161,6 @@ class NoteListState extends State<NoteList> {
 		});
   }
 }
-
-
 
 
 
