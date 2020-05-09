@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterappv14/screens/exportToExcel.dart';
 import 'package:flutterappv14/screens/note_list.dart';
 import 'package:flutterappv14/screens/query.dart';
+import 'package:flutterappv14/screens/deneme.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -51,14 +52,14 @@ class _AfterSplashState extends State<AfterSplash> {
    NoteList(),
    Query(),
    ExportToExcel(),
+    MyHomePage(),
  ];
-  
  
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(debugShowCheckedModeBanner: false,
-      title: 'YKMobim',
+      title: 'deneme',
       theme: ThemeData(        
         primarySwatch: Colors.blue,
       ),
@@ -66,7 +67,7 @@ class _AfterSplashState extends State<AfterSplash> {
       home: Scaffold(
        appBar: AppBar(
          title: Text(
-           'YKMobim',
+           'deneme',
            style: GoogleFonts.monoton(textStyle: TextStyle(color: Colors.white, letterSpacing: .5),),
           
   ),
@@ -97,6 +98,9 @@ class _AfterSplashState extends State<AfterSplash> {
               ),
             BottomNavigationBarItem(icon: Icon(Icons.cloud_download),
               title: Text('Excel')
+              ),
+              BottomNavigationBarItem(icon: Icon(Icons.cloud_download),
+              title: Text('deneme')
               ),
           ],
         ),

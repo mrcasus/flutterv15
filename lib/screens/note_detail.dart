@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutterappv14/models/note.dart';
 import 'package:flutterappv14/utils/database_helper.dart';
@@ -62,7 +63,7 @@ class NoteDetailState extends State<NoteDetail> {
     });
   }
 
-   List<String> demalt=['AKILLI TELEFON','ALARM','BANKO','BARKOD PRINTER','CRADLE','DOLAP','KAMERA','DVR','ECZA DOLABI','EL ARABASI','EL TERMİNALİ','ETEJER','HESAP MAKİNESİ','IP TELEFON','ISITICI','JENERATÖR','KABİNET','KANTAR','KART OKUYUCU','KESON','KLAVYE','KLİMA','KOLTUK','MASA','MODEM','MONİTÖR','PANO','PC','PORTMANTO','PORTRE','RAF','ROUTER','SANDALYE','SEHPA','SEHPA','SWITCH','TABELA','UPS','YANGIN TÜPÜ','YAZICI'];
+  List<String> demalt=['AKILLI TELEFON','ALARM','BANKO','BARKOD PRINTER','CRADLE','DOLAP','KAMERA','DVR','ECZA DOLABI','EL ARABASI','EL TERMİNALİ','ETEJER','HESAP MAKİNESİ','IP TELEFON','ISITICI','JENERATÖR','KABİNET','KANTAR','KART OKUYUCU','KESON','KLAVYE','KLİMA','KOLTUK','MASA','MODEM','MONİTÖR','PANO','PC','PORTMANTO','PORTRE','RAF','ROUTER','SANDALYE','SEHPA','SEHPA','SWITCH','TABELA','UPS','YANGIN TÜPÜ','YAZICI'];
   String _demalt='AKILLI TELEFON';
 
   void pilihDemalt(String value){
@@ -99,10 +100,10 @@ Future scan() async {
 
 	//	TextStyle textStyle = Theme.of(context).textTheme.title;
 
-  _ana = widget.note.anakat;
-  _alt = widget.note.altkat;
-  _demalt = widget.note.demalt;
- _sube = widget.note.subeadi;
+  //_ana = widget.note.anakat;
+  //_alt = widget.note.altkat;
+  //_demalt = widget.note.demalt;
+ // _sube = widget.note.subeadi;
 
     return WillPopScope(
 
@@ -169,7 +170,7 @@ Future scan() async {
                             updateTitle();
                           },
                           value: _sube,
-                         items: sube.map((String value){
+                         items: sube.map<DropdownMenuItem<String>>((String value){
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(
@@ -439,13 +440,3 @@ Future scan() async {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
