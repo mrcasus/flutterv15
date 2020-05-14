@@ -73,6 +73,7 @@ class NoteDetailState extends State<NoteDetail> {
   }
  
  String barcode = "";
+ 
 
 Future scan() async {
  try {
@@ -93,7 +94,7 @@ Future scan() async {
     }
   }
 
-
+TextEditingController barcodeController = TextEditingController();
 
 	@override
   Widget build(BuildContext context) {
@@ -275,16 +276,16 @@ Future scan() async {
                       Text('Barkod:',
                       style: TextStyle(fontSize: 18.0,color: Colors.red),
                       ),
-                      Text(barcode,
-                      style: TextStyle(fontSize: 18.0,color: Colors.black),
-                      ),
-                     IconButton(
-                    icon: Icon(Icons.camera),
+                      Text(barcode),
+                     
+              IconButton(
+                icon: Icon(Icons.camera_alt),
+                tooltip: 'Close',
                     iconSize: 30,
-                    onPressed: scan,
-                    //scan,
-                    )
+                    onPressed: scan, 
+              )
             ],
+           
                      ),
             
             
@@ -304,7 +305,9 @@ Future scan() async {
 									    onPressed: () {
 									    	setState(() {
 									    	  debugPrint("Save button clicked");
+                          updateBarkod();
 									    	  _save();
+                           
 									    	});
 									    },
 								    ),
