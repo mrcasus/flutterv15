@@ -31,12 +31,14 @@ class NoteDetailState extends State<NoteDetail> {
 
 	String appBarTitle;
 	Note note;
+
+  TextEditingController barkodController = TextEditingController();
   
 
 	NoteDetailState(this.note, this.appBarTitle);
 
-  List<String> sube=['AKÇAABAT','TANJANT','MEYDAN','CUMHURİYET','D.DERE','KAŞÜSTÜ İRTİBAT','ARSİN','OF','KAÇKAR','RİZE','ÇAYKENT','ÇAYELİ','ARDEŞEN','HOPA','ARTVİN','GÜMÜŞHANE','BAYBURT','VAKFIKEBİR','GİRESUN','BULANCAK','DURUGÖL','ORDU','BOZTEPE','ÇUKURÇAYIR',];
-  String _sube='AKÇAABAT';
+  List<String> sube=['','AKÇAABAT','TANJANT','MEYDAN','CUMHURİYET','D.DERE','KAŞÜSTÜ İRTİBAT','ARSİN','OF','KAÇKAR','RİZE','ÇAYKENT','ÇAYELİ','ARDEŞEN','HOPA','ARTVİN','GÜMÜŞHANE','BAYBURT','VAKFIKEBİR','GİRESUN','BULANCAK','DURUGÖL','ORDU','BOZTEPE','ÇUKURÇAYIR',];
+  String _sube='';
 
   void pilihSube(String value){
     setState(() {
@@ -44,8 +46,8 @@ class NoteDetailState extends State<NoteDetail> {
     });
   }
 
-  List<String> ana=['MOBİLYA VE MEFRUŞATLAR','DEMİRBAŞLAR','BİLGİSAYAR VE YAZICILAR','ELEKTRİK/ELEKTRONİK MALZEME'];
-  String _ana='MOBİLYA VE MEFRUŞATLAR';
+  List<String> ana=['','MOBİLYA VE MEFRUŞATLAR','DEMİRBAŞLAR','BİLGİSAYAR VE YAZICILAR','ELEKTRİK/ELEKTRONİK MALZEME'];
+  String _ana='';
 
   void pilihAna(String value){
     setState(() {
@@ -54,8 +56,8 @@ class NoteDetailState extends State<NoteDetail> {
   }
 
  
-  List<String> alt=['AKILLI TELEFON','ALARM','BANKO','BARKOD PRINTER','CRADLE','DOLAP','KAMERA','DVR','ECZA DOLABI','EL ARABASI','EL TERMİNALİ','ETEJER','HESAP MAKİNESİ','IP TELEFON','ISITICI','JENERATÖR','KABİNET','KANTAR','KART OKUYUCU','KESON','KLAVYE','KLİMA','KOLTUK','MASA','MODEM','MONİTÖR','PANO','PC','PORTMANTO','PORTRE','RAF','ROUTER','SANDALYE','SEHPA','SEHPA','SWITCH','TABELA','UPS','YANGIN TÜPÜ','YAZICI'];
-  String _alt='AKILLI TELEFON';
+  List<String> alt=['','AKILLI TELEFON','ALARM','BANKO','BARKOD PRINTER','CRADLE','DOLAP','KAMERA','DVR','ECZA DOLABI','EL ARABASI','EL TERMİNALİ','ETEJER','HESAP MAKİNESİ','IP TELEFON','ISITICI','JENERATÖR','KABİNET','KANTAR','KART OKUYUCU','KESON','KLAVYE','KLİMA','KOLTUK','MASA','MODEM','MONİTÖR','PANO','PC','PORTMANTO','PORTRE','RAF','ROUTER','SANDALYE','SEHPA','SEHPA','SWITCH','TABELA','UPS','YANGIN TÜPÜ','YAZICI'];
+  String _alt='';
 
   void pilihAlt(String value){
     setState(() {
@@ -63,8 +65,8 @@ class NoteDetailState extends State<NoteDetail> {
     });
   }
 
-  List<String> demalt=['AKILLI TELEFON','ALARM','BANKO','BARKOD PRINTER','CRADLE','DOLAP','KAMERA','DVR','ECZA DOLABI','EL ARABASI','EL TERMİNALİ','ETEJER','HESAP MAKİNESİ','IP TELEFON','ISITICI','JENERATÖR','KABİNET','KANTAR','KART OKUYUCU','KESON','KLAVYE','KLİMA','KOLTUK','MASA','MODEM','MONİTÖR','PANO','PC','PORTMANTO','PORTRE','RAF','ROUTER','SANDALYE','SEHPA','SEHPA','SWITCH','TABELA','UPS','YANGIN TÜPÜ','YAZICI'];
-  String _demalt='AKILLI TELEFON';
+  List<String> demalt=['','AKILLI TELEFON','ALARM','BANKO','BARKOD PRINTER','CRADLE','DOLAP','KAMERA','DVR','ECZA DOLABI','EL ARABASI','EL TERMİNALİ','ETEJER','HESAP MAKİNESİ','IP TELEFON','ISITICI','JENERATÖR','KABİNET','KANTAR','KART OKUYUCU','KESON','KLAVYE','KLİMA','KOLTUK','MASA','MODEM','MONİTÖR','PANO','PC','PORTMANTO','PORTRE','RAF','ROUTER','SANDALYE','SEHPA','SEHPA','SWITCH','TABELA','UPS','YANGIN TÜPÜ','YAZICI'];
+  String _demalt='';
 
   void pilihDemalt(String value){
     setState(() {
@@ -94,17 +96,28 @@ Future scan() async {
     }
   }
 
-TextEditingController barcodeController = TextEditingController();
+TextEditingController barkodController = TextEditingController();
+
+@override
+  void initState() {
+    super.initState();
+     _sube = note.subeadi;
+    _ana = note.anakat;
+    _alt = note.altkat;
+    _demalt = note.demalt;
+    barkodController.text = note.barkod;
+    //barcode = note.barkod;
+  }
 
 	@override
   Widget build(BuildContext context) {
 
-	//	TextStyle textStyle = Theme.of(context).textTheme.title;
+		TextStyle textStyle = Theme.of(context).textTheme.title;
 
   //_ana = widget.note.anakat;
   //_alt = widget.note.altkat;
   //_demalt = widget.note.demalt;
- // _sube = widget.note.subeadi;
+ // _sube = 
 
     return WillPopScope(
 
@@ -126,6 +139,7 @@ TextEditingController barcodeController = TextEditingController();
 	    ),
 
       body: Center(
+        child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
@@ -276,14 +290,32 @@ TextEditingController barcodeController = TextEditingController();
                       Text('Barkod:',
                       style: TextStyle(fontSize: 18.0,color: Colors.red),
                       ),
-                      Text(barcode),
+                     Flexible(child: TextField(
+                       controller: barkodController,
+                       style: TextStyle(fontSize: 18.0,color: Colors.red),
+                       onChanged: (barcode) {
+                      debugPrint('Something changed in Description Text Field');
+                      updateBarkod();
+                    },
+                        decoration: InputDecoration(
+                        labelText: 'Barkod',
+                        labelStyle: textStyle,
+                        suffix: IconButton(
+                          icon: Icon(Icons.camera_alt),
+                          onPressed: scan,
+                        ),
+                        )
+                      )
+                      ),
                      
-              IconButton(
-                icon: Icon(Icons.camera_alt),
-                tooltip: 'Close',
-                    iconSize: 30,
-                    onPressed: scan, 
-              )
+                      //Text(barcode),
+                     
+              //IconButton(
+                //icon: Icon(Icons.camera_alt),
+               // tooltip: 'Close',
+                 //   iconSize: 30,
+                   // onPressed: scan, 
+             // )
             ],
            
                      ),
@@ -299,13 +331,13 @@ TextEditingController barcodeController = TextEditingController();
 									    color: Theme.of(context).primaryColorDark,
 									    textColor: Theme.of(context).primaryColorLight,
 									    child: Text(
-										    'Save',
+										    'Kaydet',
 										    textScaleFactor: 1.5,
 									    ),
 									    onPressed: () {
 									    	setState(() {
 									    	  debugPrint("Save button clicked");
-                          updateBarkod();
+                          
 									    	  _save();
                            
 									    	});
@@ -318,6 +350,7 @@ TextEditingController barcodeController = TextEditingController();
               
           ],
         ) ,
+        ),
       ),
 
     ));
@@ -385,7 +418,7 @@ TextEditingController barcodeController = TextEditingController();
   // Update the barkod of Note object
   void updateBarkod(){
      {
-          note.barkod = barcode; 
+          note.barkod = barkodController.text;
     }
   }
 
@@ -393,6 +426,9 @@ TextEditingController barcodeController = TextEditingController();
 	void _save() async {
 
 		moveToLastScreen();
+    if(barkodController.text.length > 0){
+      note.barkod = barkodController.text;
+    }
 
 		note.date = DateFormat.yMMMd().format(DateTime.now());
 		int result;

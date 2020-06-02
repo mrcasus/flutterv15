@@ -6,6 +6,11 @@ import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/services.dart';
 
 
+import 'package:flutterappv14/models/note.dart';
+import 'package:flutterappv14/utils/database_helper.dart';
+//import 'package:intl/intl.dart';
+
+
 final subeAdiList = <Person>[Person('AKÇAABAT'), Person('TANJANT'), Person('MEYDAN'), Person('CUMHURİYET'), Person('D.DERE'), Person('KAŞÜSTÜ İRTİBAT'), Person('ARSİN'), Person('OF'), Person('KAÇKAR'), Person('RİZE'), Person('ÇAYKENT'), Person('ÇAYELİ'), Person('ARDEŞEN'), Person('HOPA'), Person('ARTVİN'), Person('GÜMÜŞHANE'), Person('BAYBURT'), Person('VAKFIKEBİR'), Person('ÇUKURÇAYIR')];
 final anaKategoriList = <Person1>[Person1('MOBİLYA VE MEFRUŞATLAR'), Person1('DEMİRBAŞLAR'), Person1('BİLGİSAYAR VE YAZICILAR'), Person1('ELEKTRİK/ELEKTRONİK MALZEME')];
 final altKategoriList = <Person2>[Person2('AKILLI TELEFON'), Person2('ALARM'), Person2('BANKO'), Person2('BARKOD PRINTER'),  Person2('KANTAR'), Person2('CRADLE'), Person2('KART OKUYUCU'), Person2('KESON'), Person2('PC'), Person2('KLAVYE'), Person2('PORTMANTO'), Person2('PORTRE'), Person2('DOLAP'), Person2('RAF'), Person2('KOLTUK'), Person2('KAMERA'), Person2('PC'), Person2('MONİTÖR'), Person2('KLİMA'), Person2('PANO'), Person2('MODEM'), Person2('MASA'), Person2('ROUTER'), Person2('SANDALYE'), Person2('TABELA'), Person2('UPS'), Person2('SWITCH'), Person2('SEHPA'), Person2('UPS'), Person2('YANGIN TÜPÜ'), Person2('YAZICI'), Person2('SEHPA'), Person2('DVR'), Person2('ECZA DOLABI'), Person2('EL ARABASI'), Person2('EL TERMİNALİ'), Person2('ETEJER'), Person2('HESAP MAKİNESİ'), Person2('IP TELEFON'), Person2('ISITICI'), Person2('JENERATÖR'), Person2('KABİNET')];
@@ -13,11 +18,14 @@ final demirbasKategoriList = <Person3>[Person3('AKILLI TELEFON'), Person3('ALARM
 final letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
 class _MyHomePageState extends State<MyHomePage> {
-  String selectedLetter;
+ // String selectedLetter;
   Person selectedPerson;
   Person1 selectedPerson1;
   Person2 selectedPerson2;
   Person3 selectedPerson3;
+
+
+
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
@@ -25,6 +33,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
   String barcode = "";
+  Note note;
+  
+  DatabaseHelper helper = DatabaseHelper();
  
 
 Future scan() async {
@@ -87,7 +98,7 @@ Future scan() async {
                   (person) => person.name.toLowerCase() == string.toLowerCase(),
                   orElse: () => null),
               onChanged: (value) => setState(() => selectedPerson = value),
-              onSaved: (value) => setState(() => selectedPerson = value),
+              onSaved: (value) => setState(() =>  selectedPerson = value),
               validator: (person) => person == null ? 'Invalid person.' : null,
             ),
             SizedBox(height: 8.0),
@@ -202,25 +213,7 @@ Future scan() async {
                 ),
               ),
            
-           SizedBox(height: 8.0),
-           Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //mainAxisSize: MainAxisSize.max,
-                      children: <Widget>[
-                      Text('Barkod:',
-                      style: TextStyle(fontSize: 18.0,color: Colors.red),
-                      ),
-                      Text(barcode),
-                     
-              IconButton(
-                icon: Icon(Icons.camera_alt),
-                tooltip: 'Close',
-                    iconSize: 30,
-                    onPressed: scan, 
-              )
-            ],
-           
-                     ),
+     
             
           ]),
         ),
@@ -278,3 +271,4 @@ class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
+

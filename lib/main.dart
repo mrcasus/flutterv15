@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterappv14/screens/exportToExcel.dart';
 import 'package:flutterappv14/screens/note_list.dart';
 import 'package:flutterappv14/screens/query.dart';
-import 'package:flutterappv14/screens/deneme.dart';
+//import 'package:flutterappv14/screens/deneme.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -52,7 +52,7 @@ class _AfterSplashState extends State<AfterSplash> {
    NoteList(),
    Query(),
    ExportToExcel(),
-    MyHomePage(),
+   // MyHomePage(),
  ];
  
 
@@ -99,9 +99,9 @@ class _AfterSplashState extends State<AfterSplash> {
             BottomNavigationBarItem(icon: Icon(Icons.cloud_download),
               title: Text('Excel')
               ),
-              BottomNavigationBarItem(icon: Icon(Icons.cloud_download),
-              title: Text('deneme')
-              ),
+            //  BottomNavigationBarItem(icon: Icon(Icons.cloud_download),
+              //title: Text('deneme')
+             // ),
           ],
         ),
       //floatingActionButton: Visibility(
