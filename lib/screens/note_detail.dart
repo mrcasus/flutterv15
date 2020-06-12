@@ -56,7 +56,7 @@ class NoteDetailState extends State<NoteDetail> {
   }
 
  
-  List<String> alt=['','AKILLI TELEFON','ALARM','BANKO','BARKOD PRINTER','CRADLE','DOLAP','KAMERA','DVR','ECZA DOLABI','EL ARABASI','EL TERMİNALİ','ETEJER','HESAP MAKİNESİ','IP TELEFON','ISITICI','JENERATÖR','KABİNET','KANTAR','KART OKUYUCU','KESON','KLAVYE','KLİMA','KOLTUK','MASA','MODEM','MONİTÖR','PANO','PC','PORTMANTO','PORTRE','RAF','ROUTER','SANDALYE','SEHPA','SEHPA','SWITCH','TABELA','UPS','YANGIN TÜPÜ','YAZICI'];
+  List<String> alt=['','AKILLI TELEFON','ALARM','BANKO','BARKOD PRINTER','CRADLE','DOLAP','KAMERA','DVR','ECZA DOLABI','EL ARABASI','EL TERMİNALİ','ETEJER','HESAP MAKİNESİ','IP TELEFON','ISITICI','JENERATÖR','KABİNET','KANTAR','KART OKUYUCU','KESON','KLAVYE','KLİMA','MUDUR_KOLTUK','ÇALIŞAN_KOLTUK','MİSAFİR_KOLTUK','MASA','MODEM','MONİTÖR','PANO','PC','PORTMANTO','PORTRE','RAF','ROUTER','SANDALYE','SEHPA','PRINTER_SEHPA','SWITCH','TABELA','UPS','YANGIN TÜPÜ','YAZICI'];
   String _alt='';
 
   void pilihAlt(String value){
@@ -65,7 +65,7 @@ class NoteDetailState extends State<NoteDetail> {
     });
   }
 
-  List<String> demalt=['','AKILLI TELEFON','ALARM','BANKO','BARKOD PRINTER','CRADLE','DOLAP','KAMERA','DVR','ECZA DOLABI','EL ARABASI','EL TERMİNALİ','ETEJER','HESAP MAKİNESİ','IP TELEFON','ISITICI','JENERATÖR','KABİNET','KANTAR','KART OKUYUCU','KESON','KLAVYE','KLİMA','KOLTUK','MASA','MODEM','MONİTÖR','PANO','PC','PORTMANTO','PORTRE','RAF','ROUTER','SANDALYE','SEHPA','SEHPA','SWITCH','TABELA','UPS','YANGIN TÜPÜ','YAZICI'];
+  List<String> demalt=['','AKILLI TELEFON','ALARM','BANKO','BARKOD PRINTER','CRADLE','DOLAP','KAMERA','DVR','ECZA DOLABI','EL ARABASI','EL TERMİNALİ','ETEJER','HESAP MAKİNESİ','IP TELEFON','ISITICI','JENERATÖR','KABİNET','KANTAR','KART OKUYUCU','KESON','KLAVYE','KLİMA','MUDUR_KOLTUK','ÇALIŞAN_KOLTUK','MİSAFİR_KOLTUK','MASA','MODEM','MONİTÖR','PANO','PC','PORTMANTO','PORTRE','RAF','ROUTER','SANDALYE','SEHPA','PRINTER_SEHPA','SWITCH','TABELA','UPS','YANGIN TÜPÜ','YAZICI'];
   String _demalt='';
 
   void pilihDemalt(String value){
@@ -96,7 +96,7 @@ Future scan() async {
     }
   }
 
-TextEditingController barkodController = TextEditingController();
+//TextEditingController barkodController = TextEditingController();
 
 @override
   void initState() {
@@ -112,13 +112,14 @@ TextEditingController barkodController = TextEditingController();
 	@override
   Widget build(BuildContext context) {
 
-		TextStyle textStyle = Theme.of(context).textTheme.title;
+	//	TextStyle textStyle = Theme.of(context).textTheme.title;
 
   //_ana = widget.note.anakat;
   //_alt = widget.note.altkat;
   //_demalt = widget.note.demalt;
  // _sube = 
 
+ barkodController.text = barcode;
     return WillPopScope(
 
 	    onWillPop: () {
@@ -283,42 +284,25 @@ TextEditingController barkodController = TextEditingController();
              ],
           ),
           //barkod
-          Row(
+           Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   //mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
                       Text('Barkod:',
                       style: TextStyle(fontSize: 18.0,color: Colors.red),
                       ),
-                     Flexible(child: TextField(
-                       controller: barkodController,
-                       style: TextStyle(fontSize: 18.0,color: Colors.red),
-                       onChanged: (barcode) {
-                      debugPrint('Something changed in Description Text Field');
-                      updateBarkod();
-                    },
-                        decoration: InputDecoration(
-                        labelText: 'Barkod',
-                        labelStyle: textStyle,
-                        suffix: IconButton(
-                          icon: Icon(Icons.camera_alt),
-                          onPressed: scan,
-                        ),
-                        )
-                      )
-                      ),
+                      Text(barcode),
                      
-                      //Text(barcode),
                      
-              //IconButton(
-                //icon: Icon(Icons.camera_alt),
-               // tooltip: 'Close',
-                 //   iconSize: 30,
-                   // onPressed: scan, 
-             // )
+              IconButton(
+                icon: Icon(Icons.camera_alt),
+                tooltip: 'Close',
+                    iconSize: 30,
+                    onPressed: scan, 
+              )
             ],
            
-                     ),
+            ),
             
             
             //save
